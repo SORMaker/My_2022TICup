@@ -19,9 +19,6 @@ int16 PID_speed(int16 setspeed, int16 dat, float *PID)
     float m;
     int16 output;
     uint8 flag;
-
-//    nowspeed = num[0];
-//    nowspeed = (int16)((num[0] + num[1])/2);
     nowspeed = dat;
 
     error1 = setspeed - nowspeed;
@@ -116,7 +113,6 @@ int16 PID_steer(int16 error_now, float *PID)//[-752,752]
 
     if(outdata >= 850) outdata = 850;//×ó750
     if(outdata <= 700) outdata = 700;//ÓÒ615
-//    num[3] = outdata;
 
     error_last = error_now;
 

@@ -6,7 +6,7 @@
  */
 
 #include "headfile.h"
-
+//山外波形函数
 void vcan_sendware(void *wareaddr, uint32 waresize)
 {
 #define VCAN_PORT UART_0

@@ -52,21 +52,14 @@ void core1_main(void)
 	disableInterrupts();
     IfxScuWdt_disableCpuWatchdog(IfxScuWdt_getCpuWatchdogPassword());
     //用户在此处调用各种初始化函数等
-
-
     lcd_init(); //初始化IPS屏幕
     lcd_showstr(0, 0, "SEEKFREE MT9V03x");
     lcd_showstr(0, 1, "Initializing...");
     //如果屏幕没有任何显示，请检查屏幕接线
     firstlist();
     mt9v03x_init(); //初始化摄像头
-//    int i;
     //拨码开关状态变量
     uint8 sw1_status;
-
-    //等待所有核心初始化完毕
-//	IfxCpu_emitEvent(&g_cpuSyncEvent);
-//	IfxCpu_waitEvent(&g_cpuSyncEvent, 0xFFFF);
     enableInterrupts();
     while (TRUE)
     {
@@ -92,27 +85,8 @@ void core1_main(void)
                     camera_error = sum_error(task2_wid);
                 }
                 //方向偏差 控制舵机
-//                camera_error = sum_error(task2_wid);
                 steer_duty = PID_steer(camera_error,Direct_PID_parameter);
                 pwm_duty(ATOM1_CH1_P33_9,steer_duty);
-
-    //            printf("&&&&&&&&&&\n");
-    //            //打印右线
-    //            for(i = 0; i < 188; i++)
-    //                printf("%d,\n",side_line[i]);
-    //            printf("&&&&&&&&&&\n");
-
-                //task_1
-//                lcd_showuint16(50,7,ku1);
-//                lcd_showint16(100,7,steer_duty);
-//                lcd_showint16(100,6,camera_error);
-
-                //task_2
-//                lcd_showuint8(0,7,T_count);
-//                lcd_showuint8(50,7,T_times);
-//                lcd_showint16(100,7,num[5]);
-//                lcd_showint16(100,6,black_count);
-
                 lcd_showint16(0,7,task_flag);
                 lcd_showint16(50,7,park_flag);
 
@@ -127,10 +101,6 @@ void core1_main(void)
                 //注意：一定要在图像使用完毕后在清除此标志位
             }
         }
-//        lcd_showint16(0,7,task_flag);
-//        lcd_showint16/(50,7,park_flag);
-//        lcd_showuint16(0,7,di_count_5);
-
     }
 }
 
